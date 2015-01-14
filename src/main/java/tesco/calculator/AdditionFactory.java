@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class AdditionFactory {
 
     public static Addition getAddition(String numbers) {
-
+        checkForNegativeNumbers(numbers);
         String[] numbersArray = numbers.split(delimiters(numbers));
         int numbersAmount = numbersArray.length;
 
@@ -17,7 +17,7 @@ public class AdditionFactory {
             return new EmptyNumbers();
         }
 
-        if(numbersAmount == 1 && !numbersArray[0].isEmpty()) {
+        if(numbersAmount == 1 && !(numbersArray[0].isEmpty())) {
             return new OneNumber(numbersArray);
         }
 
@@ -37,6 +37,18 @@ public class AdditionFactory {
             return "[,\\n" + matcher.group(1)+ "]";
         } else {
             return "[,\\n]";
+        }
+    }
+
+    private static void checkForNegativeNumbers(String numbers) {
+        Pattern p = Pattern.compile("-\\d+");
+        Matcher m = p.matcher(numbers);
+        String negativeNumbers = "";
+        while (m.find()) {
+            negativeNumbers +=  m.group() + ",";
+        }
+        if(!negativeNumbers.equals("")) {
+            throw new NumberFormatException("Negative numbers: " + negativeNumbers);
         }
     }
 }

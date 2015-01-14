@@ -16,7 +16,7 @@ public class MoreThanOneNumber implements Addition {
 
         int sum = 0;
         for(String number : numbersArray){
-            if(number.matches("\\d+")) {
+            if(number.matches("\\d+") && Integer.parseInt(number)< 1001) {
                 sum += Integer.parseInt(number);
             }
         }

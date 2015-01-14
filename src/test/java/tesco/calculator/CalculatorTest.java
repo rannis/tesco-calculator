@@ -51,4 +51,9 @@ public class CalculatorTest {
     public void whenThereIsANegativeNumber() {
         calculator.add("//;\n-1;-2");
     }
+
+    @Test
+    public void whenANumberIsBiggerThan1000ItShouldBeIgnored() {
+        assertEquals(2, calculator.add("1001,2"));
+    }
 }
